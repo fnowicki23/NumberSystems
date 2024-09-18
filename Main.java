@@ -5,8 +5,18 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("Enter a number in binary: ");
         int num = readNumFromUser();
+        displayDecimal(num);
+        displayOctal(num);
+        displayHex(num);
+    }
+
+    private static void displayDecimal(int num){
         System.out.println("Decimal: " + num);
+    }
+    private static void displayOctal(int num){
         System.out.printf("  Octal: %o\n", num);
+    }
+    private static void displayHex(int num){
         System.out.printf("    Hex: %h\n", num);
     }
 
@@ -19,12 +29,16 @@ public class Main {
             if (inputNum < 0 || inputNum > 1)
                 throw new Exception("binary numbers can only contain 0 or 1");
 
+            int place = System.in.available()-1;
+            if (place > 15)
+                throw new Exception("limit of 16 characters");
 
-            int power = (System.in.available()-1) | 1 >> 1;
-            number += Math.pow(2*inputNum, power);
+
+            number += inputNum << place;
         }
 
         return number;
     }
+
 
 }
